@@ -1,0 +1,234 @@
+:root {
+    /* ========================================= */
+    /* 1. PALETA DE COLORES Y SOMBRAS (VARIABLES CSS) */
+    /* ========================================= */
+    --primary: #003366;
+    /* Azul Oscuro (Primario): Usado para fondos y texto principal. */
+    --accent: #FFA000;
+    /* Naranja (Acento): Usado para CTA, indicadores de estado y elementos destacados. */
+    --white: #ffffff;
+
+    /* Escala de Grises ajustada para mantener un buen contraste con los fondos. */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+
+    /* Sombra de Énfasis: Utilizada para el efecto 'hover-lift' y destacar componentes. */
+    --shadow-lift: 0 10px 20px rgba(0, 51, 102, 0.15);
+}
+
+/* ========================================= */
+/* 2. ESTILOS GLOBALES Y ACCESIBILIDAD */
+/* ========================================= */
+
+/* Habilita el desplazamiento suave (smooth scroll) al hacer clic en enlaces internos (#id-de-seccion). */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Aplicación de Variables de Color a las Clases Personalizadas de Tailwind */
+/* Estas clases actúan como tokens de diseño reutilizables. */
+.text-primary-custom {
+    color: var(--primary);
+}
+
+.bg-primary-custom {
+    background-color: var(--primary);
+}
+
+.text-accent-custom {
+    color: var(--accent);
+}
+
+.bg-accent-custom {
+    background-color: var(--accent);
+}
+
+.ring-accent-custom {
+    --tw-ring-color: var(--accent);
+}
+
+/* -------------------- */
+/* 3. ESTILOS DE BOTONES: Jerarquía de Acciones */
+/* -------------------- */
+.btn-primary {
+    /* Botón de acción principal (CTA) con color de acento y sombra para prominencia. */
+    background-color: var(--accent);
+    color: var(--primary);
+    box-shadow: 0 4px 10px rgba(255, 160, 0, 0.4);
+}
+
+.btn-primary:hover {
+    /* Feedback visual al pasar el mouse (color más claro y sombra más intensa). */
+    background-color: #ffb833;
+    box-shadow: 0 6px 15px rgba(255, 160, 0, 0.5);
+}
+
+.btn-secondary {
+    /* Botón de acción secundaria: relleno sólido con color primario. */
+    background-color: var(--primary);
+    color: var(--white);
+    border: 1px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    /* Feedback visual al pasar el mouse (azul más oscuro). */
+    background-color: #004488;
+    border-color: #004488;
+}
+
+.btn-tertiary {
+    /* Botón terciario o de "enlace" (Ghost Button): transparente y ligero. */
+    /* Utiliza @apply de Tailwind para aplicar un conjunto de utilidades. */
+    @apply bg-transparent text-primary-custom border border-primary-custom/30
+    /* Borde suave para definir el área y efectos de hover sutiles. */
+    hover:bg-primary-custom/10 active:bg-primary-custom/20 shadow-none;
+}
+
+/* -------------------- */
+/* 4. EFECTOS DE INTERACCIÓN (Hover y Animaciones) */
+/* -------------------- */
+
+/* Efecto de Elevación (Lift) al Pasar el Mouse, utilizado en tarjetas y botones. */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    /* Desplaza el elemento hacia arriba y aplica la sombra de énfasis. */
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+}
+
+/* Estilo de la Barra de Navegación (Originalmente Glassmorphism) */
+/* Este estilo fue reemplazado por un fondo blanco simple en el HTML, por lo que el estilo no se aplica si se usa 'bg-white' directamente. */
+.nav-glass {
+    background-color: rgba(0, 51, 102, 0.95);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Indicador de Progreso de Lectura, fijo en la parte superior. */
+.scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 55;
+}
+
+/* Animación de Pulso (Pulse Dot) para elementos de estado "en vivo" o destacados. */
+.pulse-dot {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    /* La animación alterna la opacidad del punto para crear un efecto de pulso. */
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Estilo de Gradiente de Texto, utilizado para el encabezado principal (H1). */
+.gradient-text {
+    /* Aplica un gradiente de color al texto usando las propiedades de clip. */
+    background: linear-gradient(to right, var(--primary), #1a609d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Efecto Fade-in (usado por Intersection Observer) para animar la entrada de secciones al hacer scroll. */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.appear {
+    /* La clase 'appear' se añade mediante JavaScript para iniciar la transición. */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* -------------------- */
+/* 5. COMPONENTES ESPECÍFICOS Y AJUSTES DE SCROLL */
+/* -------------------- */
+
+/* Estilos de Migas de Pan (Breadcrumb) */
+.breadcrumb-item {
+    color: var(--gray-600);
+    transition: color 0.3s ease;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item.active {
+    /* Resalta el elemento actual con color primario y negrita. */
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.breadcrumb-separator {
+    color: var(--gray-400);
+    margin: 0 8px;
+}
+
+/* Cards de Estadísticas en Hero Section */
+.stat-card {
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-100);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    /* Ligero cambio de fondo y sombra al pasar el mouse. */
+    background-color: var(--white);
+    box-shadow: 0 4px 10px rgba(0, 51, 102, 0.1);
+}
+
+/* Estilo de Fila Destacada en la Tabla (Rendimiento) */
+.card-highlight {
+    /* Destaca la fila de "Cat 6" con un borde de acento. */
+    background-color: var(--gray-50);
+    border-left: 5px solid var(--accent);
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.card-highlight:hover {
+    /* Feedback visual al pasar el mouse. */
+    background-color: var(--gray-100);
+}
+
+/* Ajuste de Margen de Scroll para Navegación Fija (Mobile) */
+/* Esto asegura que la sección de destino sea visible y no quede oculta por la barra de navegación fija. */
+@media (max-width: 768px) {
+
+    #caracteristicas,
+    #especificaciones,
+    #rendimiento,
+    #calculadora {
+        /* Deja espacio suficiente para el navbar móvil */
+        scroll-margin-top: 20rem; 
+    }
+}
+
+/* Ajuste de Margen de Scroll para la sección de Inicio (Desktop y Mobile) */
+#inicio{
+    /* Margen para que la sección de inicio no quede oculta. */
+    scroll-margin-top: 10rem;
+}
