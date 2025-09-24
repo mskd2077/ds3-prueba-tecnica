@@ -186,9 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const breadcrumbContainer = document.getElementById('breadcrumbs');
     const breadcrumbData = [
         // Define la estructura de las migas de pan.
-        { name: 'Inicio', href: '#inicio', active: false },
-        { name: 'Cableado Estructurado', href: 'https://ds3comunicaciones.com/amp/CableadoEstructurado.html', active: false },
-        { name: 'Categoría 6', href: 'https://ds3comunicaciones.com/amp/Cat6.html', active: false },
+        { name: 'Inicio', href: 'https://www.ds3comunicaciones.com/index.html', active: false },
+        { name: 'Cableado Estructurado', href: '#', active: false },
+        { name: 'Categoría 6', href: '#', active: false },
         { name: 'Cable UTP AMP Cat 6', href: '#', active: true } // El último elemento es el actual.
     ];
 
