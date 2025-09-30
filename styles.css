@@ -1,234 +1,328 @@
 :root {
-    /* ========================================= */
-    /* 1. PALETA DE COLORES Y SOMBRAS (VARIABLES CSS) */
-    /* ========================================= */
-    --primary: #003366;
-    /* Azul Oscuro (Primario): Usado para fondos y texto principal. */
-    --accent: #FFA000;
-    /* Naranja (Acento): Usado para CTA, indicadores de estado y elementos destacados. */
-    --white: #ffffff;
+            /* Nueva paleta de colores */
+            --primary: #003366;
+            --accent: #FFA000;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --shadow-lift: 0 10px 20px rgba(0, 51, 102, 0.15);
 
-    /* Escala de Grises ajustada para mantener un buen contraste con los fondos. */
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
+            /* Sombras adicionales */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
 
-    /* Sombra de Énfasis: Utilizada para el efecto 'hover-lift' y destacar componentes. */
-    --shadow-lift: 0 10px 20px rgba(0, 51, 102, 0.15);
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* ========================================= */
-/* 2. ESTILOS GLOBALES Y ACCESIBILIDAD */
-/* ========================================= */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--gray-50);
+            color: var(--gray-700);
+        }
 
-/* Habilita el desplazamiento suave (smooth scroll) al hacer clic en enlaces internos (#id-de-seccion). */
-html {
-    scroll-behavior: smooth;
-}
+        /* Utilidades de color */
+        .text-primary {
+            color: var(--primary);
+        }
 
-/* Aplicación de Variables de Color a las Clases Personalizadas de Tailwind */
-/* Estas clases actúan como tokens de diseño reutilizables. */
-.text-primary-custom {
-    color: var(--primary);
-}
+        .bg-primary {
+            background-color: var(--primary);
+        }
 
-.bg-primary-custom {
-    background-color: var(--primary);
-}
+        .text-accent {
+            color: var(--accent);
+        }
 
-.text-accent-custom {
-    color: var(--accent);
-}
+        .bg-accent {
+            background-color: var(--accent);
+        }
 
-.bg-accent-custom {
-    background-color: var(--accent);
-}
+        .border-accent {
+            border-color: var(--accent);
+        }
 
-.ring-accent-custom {
-    --tw-ring-color: var(--accent);
-}
+        .ring-accent {
+            --tw-ring-color: var(--accent);
+        }
 
-/* -------------------- */
-/* 3. ESTILOS DE BOTONES: Jerarquía de Acciones */
-/* -------------------- */
-.btn-primary {
-    /* Botón de acción principal (CTA) con color de acento y sombra para prominencia. */
-    background-color: var(--accent);
-    color: var(--primary);
-    box-shadow: 0 4px 10px rgba(255, 160, 0, 0.4);
-}
+        /* Botones mejorados */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
 
-.btn-primary:hover {
-    /* Feedback visual al pasar el mouse (color más claro y sombra más intensa). */
-    background-color: #ffb833;
-    box-shadow: 0 6px 15px rgba(255, 160, 0, 0.5);
-}
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
 
-.btn-secondary {
-    /* Botón de acción secundaria: relleno sólido con color primario. */
-    background-color: var(--primary);
-    color: var(--white);
-    border: 1px solid var(--primary);
-}
+        .btn-primary:hover {
+            background-color: #004080;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
 
-.btn-secondary:hover {
-    /* Feedback visual al pasar el mouse (azul más oscuro). */
-    background-color: #004488;
-    border-color: #004488;
-}
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
 
-.btn-tertiary {
-    /* Botón terciario o de "enlace" (Ghost Button): transparente y ligero. */
-    /* Utiliza @apply de Tailwind para aplicar un conjunto de utilidades. */
-    @apply bg-transparent text-primary-custom border border-primary-custom/30
-    /* Borde suave para definir el área y efectos de hover sutiles. */
-    hover:bg-primary-custom/10 active:bg-primary-custom/20 shadow-none;
-}
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
 
-/* -------------------- */
-/* 4. EFECTOS DE INTERACCIÓN (Hover y Animaciones) */
-/* -------------------- */
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
 
-/* Efecto de Elevación (Lift) al Pasar el Mouse, utilizado en tarjetas y botones. */
-.hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        .btn-accent:hover {
+            background-color: #e68a00;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
 
-.hover-lift:hover {
-    /* Desplaza el elemento hacia arriba y aplica la sombra de énfasis. */
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lift);
-}
+        /* Cards mejoradas */
+        .card {
+            background-color: var(--white);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s ease;
+        }
 
-/* Estilo de la Barra de Navegación (Originalmente Glassmorphism) */
-/* Este estilo fue reemplazado por un fondo blanco simple en el HTML, por lo que el estilo no se aplica si se usa 'bg-white' directamente. */
-.nav-glass {
-    background-color: rgba(0, 51, 102, 0.95);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
+        .card:hover {
+            box-shadow: var(--shadow-lift);
+            transform: translateY(-2px);
+        }
 
-/* Indicador de Progreso de Lectura, fijo en la parte superior. */
-.scroll-indicator {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: var(--accent);
-    width: 0%;
-    z-index: 55;
-}
+        .card-feature {
+            background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+            border: 1px solid var(--gray-100);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* Animación de Pulso (Pulse Dot) para elementos de estado "en vivo" o destacados. */
-.pulse-dot {
-    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+        .card-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-@keyframes pulse-ring {
-    /* La animación alterna la opacidad del punto para crear un efecto de pulso. */
-    0%,
-    100% {
-        opacity: 1;
-    }
+        .card-feature:hover::before {
+            opacity: 1;
+        }
 
-    50% {
-        opacity: 0.5;
-    }
-}
+        .card-feature:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lift);
+        }
 
-/* Estilo de Gradiente de Texto, utilizado para el encabezado principal (H1). */
-.gradient-text {
-    /* Aplica un gradiente de color al texto usando las propiedades de clip. */
-    background: linear-gradient(to right, var(--primary), #1a609d);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+        /* Badge mejorado */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #ffb340 100%);
+            color: var(--white);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
 
-/* Efecto Fade-in (usado por Intersection Observer) para animar la entrada de secciones al hacer scroll. */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
+        .pulse-dot {
+            width: 0.375rem;
+            height: 0.375rem;
+            border-radius: 50%;
+            background-color: var(--white);
+            animation: pulse 2s infinite;
+        }
 
-.fade-in.appear {
-    /* La clase 'appear' se añade mediante JavaScript para iniciar la transición. */
-    opacity: 1;
-    transform: translateY(0);
-}
+        @keyframes pulse {
 
-/* -------------------- */
-/* 5. COMPONENTES ESPECÍFICOS Y AJUSTES DE SCROLL */
-/* -------------------- */
+            0%,
+            100% {
+                opacity: 1;
+            }
 
-/* Estilos de Migas de Pan (Breadcrumb) */
-.breadcrumb-item {
-    color: var(--gray-600);
-    transition: color 0.3s ease;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-}
+            50% {
+                opacity: 0.5;
+            }
+        }
 
-.breadcrumb-item.active {
-    /* Resalta el elemento actual con color primario y negrita. */
-    color: var(--primary);
-    font-weight: 700;
-}
+        /* Gradientes de texto */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, #0066cc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
 
-.breadcrumb-separator {
-    color: var(--gray-400);
-    margin: 0 8px;
-}
+        /* Animaciones */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
 
-/* Cards de Estadísticas en Hero Section */
-.stat-card {
-    background-color: var(--gray-50);
-    border: 1px solid var(--gray-100);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-.stat-card:hover {
-    /* Ligero cambio de fondo y sombra al pasar el mouse. */
-    background-color: var(--white);
-    box-shadow: 0 4px 10px rgba(0, 51, 102, 0.1);
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* Estilo de Fila Destacada en la Tabla (Rendimiento) */
-.card-highlight {
-    /* Destaca la fila de "Cat 6" con un borde de acento. */
-    background-color: var(--gray-50);
-    border-left: 5px solid var(--accent);
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
+        /* Scrollbar personalizada */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
 
-.card-highlight:hover {
-    /* Feedback visual al pasar el mouse. */
-    background-color: var(--gray-100);
-}
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
 
-/* Ajuste de Margen de Scroll para Navegación Fija (Mobile) */
-/* Esto asegura que la sección de destino sea visible y no quede oculta por la barra de navegación fija. */
-@media (max-width: 768px) {
+        /* Modal mejorado */
+        .modal-backdrop {
+            background: rgba(0, 51, 102, 0.8);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
 
-    #caracteristicas,
-    #especificaciones,
-    #rendimiento,
-    #calculadora {
-        /* Deja espacio suficiente para el navbar móvil */
-        scroll-margin-top: 20rem; 
-    }
-}
+        /* Mejoras específicas */
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+            transition: background-color 0.2s ease;
+        }
 
-/* Ajuste de Margen de Scroll para la sección de Inicio (Desktop y Mobile) */
-#inicio{
-    /* Margen para que la sección de inicio no quede oculta. */
-    scroll-margin-top: 10rem;
-}
+        .spec-row:hover {
+            background-color: var(--gray-50);
+            margin: 0 -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 0.375rem;
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .price-highlight {
+            background: linear-gradient(135deg, var(--primary) 0%, #004080 100%);
+            color: var(--white);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-highlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        /* Iconos mejorados */
+        .icon-circle {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, #ffb340 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .icon-circle:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Estilos responsivos mejorados */
+        @media (max-width: 768px) {
+            .btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .card-feature {
+                padding: 1rem;
+            }
+
+            .icon-circle {
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Regla de diseño para la sección de producto (30% / 70%) */
+        @media (min-width: 1024px) {
+            .product-layout {
+                grid-template-columns: 30% 70%;
+            }
+        }

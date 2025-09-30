@@ -19,342 +19,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
 
-    <style>
-        :root {
-            /* Nueva paleta de colores */
-            --primary: #003366;
-            --accent: #FFA000;
-            --white: #ffffff;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --shadow-lift: 0 10px 20px rgba(0, 51, 102, 0.15);
-
-            /* Sombras adicionales */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--gray-50);
-            color: var(--gray-700);
-        }
-
-        /* Utilidades de color */
-        .text-primary {
-            color: var(--primary);
-        }
-
-        .bg-primary {
-            background-color: var(--primary);
-        }
-
-        .text-accent {
-            color: var(--accent);
-        }
-
-        .bg-accent {
-            background-color: var(--accent);
-        }
-
-        .border-accent {
-            border-color: var(--accent);
-        }
-
-        .ring-accent {
-            --tw-ring-color: var(--accent);
-        }
-
-        /* Botones mejorados */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.625rem 1.5rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--white);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-primary:hover {
-            background-color: #004080;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--primary);
-            color: var(--white);
-            transform: translateY(-1px);
-        }
-
-        .btn-accent {
-            background-color: var(--accent);
-            color: var(--white);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-accent:hover {
-            background-color: #e68a00;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Cards mejoradas */
-        .card {
-            background-color: var(--white);
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-100);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-lift);
-            transform: translateY(-2px);
-        }
-
-        .card-feature {
-            background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
-            border: 1px solid var(--gray-100);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-feature::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .card-feature:hover::before {
-            opacity: 1;
-        }
-
-        .card-feature:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lift);
-        }
-
-        /* Badge mejorado */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-            padding: 0.375rem 0.75rem;
-            background: linear-gradient(135deg, var(--accent) 0%, #ffb340 100%);
-            color: var(--white);
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .pulse-dot {
-            width: 0.375rem;
-            height: 0.375rem;
-            border-radius: 50%;
-            background-color: var(--white);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        /* Gradientes de texto */
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary) 0%, #0066cc 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800;
-        }
-
-        /* Animaciones */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Scrollbar personalizada */
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Modal mejorado */
-        .modal-backdrop {
-            background: rgba(0, 51, 102, 0.8);
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-        }
-
-        /* Mejoras específicas */
-        .spec-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-100);
-            transition: background-color 0.2s ease;
-        }
-
-        .spec-row:hover {
-            background-color: var(--gray-50);
-            margin: 0 -1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            border-radius: 0.375rem;
-        }
-
-        .spec-row:last-child {
-            border-bottom: none;
-        }
-
-        .price-highlight {
-            background: linear-gradient(135deg, var(--primary) 0%, #004080 100%);
-            color: var(--white);
-            padding: 1.25rem;
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .price-highlight::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%) translateY(-100%) rotate(45deg);
-            }
-
-            100% {
-                transform: translateX(100%) translateY(100%) rotate(45deg);
-            }
-        }
-
-        /* Iconos mejorados */
-        .icon-circle {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent) 0%, #ffb340 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.25rem;
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease;
-        }
-
-        .icon-circle:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* Estilos responsivos mejorados */
-        @media (max-width: 768px) {
-            .btn {
-                padding: 0.75rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .card-feature {
-                padding: 1rem;
-            }
-
-            .icon-circle {
-                width: 2.5rem;
-                height: 2.5rem;
-                font-size: 1rem;
-            }
-        }
-
-        /* Regla de diseño para la sección de producto (30% / 70%) */
-        @media (min-width: 1024px) {
-            .product-layout {
-                grid-template-columns: 30% 70%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
     <nav class="bg-white w-full shadow-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6">
-            <!-- Navbar escritorio -->
             <div class="hidden lg:flex justify-between items-center py-4">
                 <div class="flex items-center">
                     <img src="https://www.ds3comunicaciones.com/mikrotik/images/Logo1.jpg" alt="DS3 Comunicaciones Logo"
@@ -362,8 +32,7 @@
                     <img src="images/amp-netconnect.png" alt="Amp Logo" class="h-10" />
                 </div>
 
-                <!-- Contacto SOLO visible en escritorio -->
-                <div class="hidden lg:flex space-x-8 text-gray-700">
+                <div class="flex items-center space-x-8 text-gray-700">
                     <div class="flex items-center hover:text-primary transition-colors">
                         <i class="fas fa-phone-alt mr-2 text-accent"></i>
                         <div>
@@ -400,7 +69,6 @@
                 </div>
             </div>
 
-            <!-- Navbar móvil -->
             <div class="lg:hidden flex flex-col">
                 <div class="flex justify-between items-center py-2">
                     <button id="mobile-menu-button" class="p-2 rounded-md hover:bg-gray-100 transition-colors"
@@ -409,8 +77,10 @@
                     </button>
 
                     <div class="flex items-center gap-2">
-                        <img src="images/logo1.jpg" alt="DS3 Comunicaciones Logo" class="h-10" />
-                        <img src="images/amp-netconnect.png" alt="Cisco Logo" class="h-10" />
+                        <img src="https://www.ds3comunicaciones.com/mikrotik/images/Logo1.jpg"
+                            alt="DS3 Comunicaciones Logo" class="h-10" />
+                        <img src="https://www.ds3comunicaciones.com/cisco/images/cisco-gif.gif" alt="Cisco Logo"
+                            class="h-8" />
                     </div>
 
                     <button id="mobile-search-button" class="p-2 rounded-md hover:bg-gray-100 transition-colors"
@@ -418,14 +88,52 @@
                         <i class="fas fa-search text-xl text-primary"></i>
                     </button>
                 </div>
+
+                <div class="pb-2 border-t border-gray-100">
+
+                    <div class="py-2 px-6 text-gray-700 text-xs">
+                        <div class="grid grid-cols-2 gap-y-1 gap-x-4">
+                            <p class="font-bold flex items-center text-gray-600"><i
+                                    class="fas fa-phone-alt mr-1 text-accent"></i> 994-428-965</p>
+                            <p class="font-bold flex items-center text-gray-600"><i
+                                    class="fas fa-phone-alt mr-1 text-accent"></i> 99653-3223</p>
+                            <p class="font-bold flex items-center text-gray-600"><i
+                                    class="fas fa-envelope mr-1 text-accent"></i> netperu100@hotmail.com</p>
+                        </div>
+                    </div>
+
+                    <details class="group py-2 px-6 border-t border-gray-100">
+                        <summary
+                            class="flex justify-between items-center cursor-pointer text-sm font-bold text-primary">
+                            <span>Ver Categorías de Productos</span>
+                            <i class="fas fa-chevron-down transition-transform group-open:rotate-180 text-accent"></i>
+                        </summary>
+                        <div class="pt-3 pb-1 grid grid-cols-2 gap-y-2 text-sm text-gray-700">
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat5e"
+                                class="hover:text-accent">Cable Cat 5E</a>
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat6"
+                                class="hover:text-accent">Cable Cat 6</a>
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat6a"
+                                class="hover:text-accent">Cable Cat 6A</a>
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat7"
+                                class="hover:text-accent">Cable Cat 7</a>
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#conectoramp"
+                                class="hover:text-accent">Conectores</a>
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#jackamp"
+                                class="hover:text-accent">Jacks</a>
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#patchcordamp"
+                                class="hover:text-accent">Patch Cords</a>
+                            <a href="https://www.ds3comunicaciones.com/AMP/index.html#patchpanelamp"
+                                class="hover:text-accent">Patch Panels</a>
+                        </div>
+                    </details>
+                </div>
             </div>
         </div>
 
-        <!-- Drawer -->
         <div id="mobile-menu"
             class="fixed top-0 left-0 h-full w-80 bg-white shadow-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
 
-            <!-- Cerrar -->
             <div class="flex justify-end p-4 border-b">
                 <button id="close-menu" class="text-gray-500 hover:text-gray-700" aria-label="Cerrar menú">
                     <i class="fas fa-times text-2xl"></i>
@@ -433,30 +141,6 @@
             </div>
 
             <div class="px-6 pb-8 space-y-8">
-                <!-- Categorías -->
-                <div>
-                    <h3 class="text-sm font-bold text-primary mb-2">Categorías</h3>
-                    <div class="flex flex-col space-y-1">
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat5e"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Cable Cat 5E</a>
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat6"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Cable Cat 6</a>
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat6a"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Cable Cat 6A</a>
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#cablecat7"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Cable Cat 7</a>
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#conectoramp"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Conectores</a>
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#jackamp"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Jacks</a>
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#patchcordamp"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Patch Cords</a>
-                        <a href="https://www.ds3comunicaciones.com/AMP/index.html#patchpanelamp"
-                            class="py-2 border-b text-sm font-medium text-gray-700 hover:text-accent">Patch Panels</a>
-                    </div>
-                </div>
-
-                <!-- Lista de precios como dropdown -->
                 <details class="group">
                     <summary
                         class="flex justify-between items-center cursor-pointer py-2 text-sm font-bold text-primary border-b">
@@ -518,7 +202,6 @@
                     </ul>
                 </details>
 
-                <!-- Marcas como dropdown -->
                 <details class="group">
                     <summary
                         class="flex justify-between items-center cursor-pointer py-2 text-sm font-bold text-primary border-b">
@@ -621,27 +304,8 @@
                         </a>
                     </div>
                 </details>
-
-
-                <!-- Contacto -->
-                <div>
-                    <h3 class="text-sm font-bold text-primary mb-2">Contacto</h3>
-                    <p class="text-sm text-gray-700 flex items-center mb-1">
-                        <i class="fas fa-phone-alt mr-2 text-accent"></i> 994 428 965
-                    </p>
-                    <p class="text-sm text-gray-700 flex items-center mb-1">
-                        <i class="fas fa-phone-alt mr-2 text-accent"></i> 99653 3223
-                    </p>
-                    <p class="text-sm text-gray-700 flex items-center mb-1">
-                        <i class="fas fa-envelope mr-2 text-accent"></i> netperu100@hotmail.com
-                    </p>
-                    <p class="text-sm text-gray-700 flex items-center">
-                        <i class="fas fa-map-marker-alt mr-2 text-accent"></i> Lima, PERÚ
-                    </p>
-                </div>
             </div>
         </div>
-
 
         <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
     </nav>
@@ -724,13 +388,12 @@
     </section>
 
     <main class="bg-gray-50">
-        <!-- Breadcrumb -->
         <div class="bg-white shadow-sm border-b border-gray-100 py-2">
             <div class="max-w-7xl mx-auto px-6">
                 <nav class="flex items-center text-sm bg-gray-50 px-4 py-2 rounded-lg shadow-sm"
                     aria-label="Breadcrumb">
                     <ol class="flex items-center space-x-2 text-gray-500">
-                        <li><a href="https://www.ds3comunicaciones.com/index.html" class="hover:text-primary" rel=""><i
+                        <li><a href="https://www.ds3comunicaciones.com/index.html" class="hover:text-primary" rel="" title="Home"><i
                                     class="ph ph-house"></i></a></li>
                         <li><span class="text-gray-300">/</span></li>
                         <li><a href="https://www.ds3comunicaciones.com/AMP/index.html" class="hover:text-primary">AMP
@@ -742,14 +405,10 @@
             </div>
         </div>
 
-        <!-- Layout -->
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 items-start py-12">
 
-            <!-- Contenido principal -->
             <div>
-                <!-- Producto -->
                 <section class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start mb-16">
-                    <!-- Imagen -->
                     <div class="lg:col-span-2 lg:sticky lg:top-24">
                         <div class="card p-6 relative">
                             <img src="images/cable-utp.png" alt="Cable UTP AMP Categoría 6"
@@ -768,7 +427,6 @@
                         </div>
                     </div>
 
-                    <!-- Info -->
                     <div class="lg:col-span-3">
                         <div class="mb-6 border-b border-gray-200 pb-4">
                             <span class="badge mb-3"><span class="pulse-dot"></span>Categoría 6 Profesional</span>
@@ -781,7 +439,6 @@
                                 Chaqueta CMR • 23AWG</p>
                         </div>
 
-                        <!-- Precio -->
                         <div class="price-highlight mb-8">
                             <div class="relative z-10">
                                 <span class="text-sm font-medium text-white/80 block mb-1">Precio por Rollo
@@ -793,7 +450,6 @@
                             </div>
                         </div>
 
-                        <!-- Descripción -->
                         <p class="text-gray-700 mb-6 leading-relaxed">
                             Solución de cableado estructurado de alta performance que excede los estándares
                             TIA/EIA-568-B.2-1. Diseñado para aplicaciones críticas que requieren
@@ -801,7 +457,6 @@
                             profesionales.
                         </p>
 
-                        <!-- Especificaciones rápidas -->
                         <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-xl border">
                             <div class="text-center">
                                 <i class="ph ph-gauge text-2xl text-accent"></i>
@@ -820,7 +475,6 @@
                             </div>
                         </div>
 
-                        <!-- Botones -->
                         <div class="flex flex-wrap gap-3">
                             <a href="https://www.ds3comunicaciones.com/pedido.html"
                                 class="btn btn-primary flex-1 sm:flex-none">
@@ -837,7 +491,6 @@
                     </div>
                 </section>
 
-                <!-- Características -->
                 <section id="caracteristicas" class="py-16 bg-primary text-white">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-12">
@@ -970,8 +623,7 @@
                                 <div class="p-6 flex flex-col h-full">
                                     <div
                                         class="flex-grow flex items-center justify-center mb-6 h-48 bg-gray-50 rounded-lg overflow-hidden">
-                                        <img src="images/utp-cat-6a.jpeg"
-                                            alt="Cable Cat 6A UTP"
+                                        <img src="images/utp-cat-6a.jpeg" alt="Cable Cat 6A UTP"
                                             class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
                                     </div>
                                     <div class="border-t pt-4 text-center">
@@ -988,8 +640,7 @@
                                 <div class="p-6 flex flex-col h-full">
                                     <div
                                         class="flex-grow flex items-center justify-center mb-6 h-48 bg-gray-50 rounded-lg overflow-hidden">
-                                        <img src="images/sftp-cat-6.jpeg"
-                                            alt="Cable Cat 6 S/FTP"
+                                        <img src="images/sftp-cat-6.jpeg" alt="Cable Cat 6 S/FTP"
                                             class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
                                     </div>
                                     <div class="border-t pt-4 text-center">
@@ -1005,8 +656,7 @@
                                 <div class="p-6 flex flex-col h-full">
                                     <div
                                         class="flex-grow flex items-center justify-center mb-6 h-48 bg-gray-50 rounded-lg overflow-hidden">
-                                        <img src="images/sftp-cat-6a.jpeg"
-                                            alt="Cable Cat 6A S/FTP"
+                                        <img src="images/sftp-cat-6a.jpeg" alt="Cable Cat 6A S/FTP"
                                             class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
                                     </div>
                                     <div class="border-t pt-4 text-center">
@@ -1109,7 +759,6 @@
             </div>
 
             <aside class="hidden lg:block lg:sticky lg:top-24 w-72 h-[80vh] overflow-y-auto space-y-6 custom-scroll">
-                <!-- Marcas -->
                 <details class="card p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition" open>
                     <summary class="font-bold text-primary cursor-pointer">Nuestras Marcas</summary>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 gap-y-3 mt-4">
@@ -1208,7 +857,6 @@
                     </div>
                 </details>
 
-                <!-- Listas de Precios -->
                 <details class="card p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition">
                     <summary class="font-bold text-primary cursor-pointer flex items-center">
                         <i class="ph ph-list-bullets mr-2 text-accent"></i> Listas de Precios
@@ -1379,169 +1027,7 @@
 
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Animaciones de entrada progresivas
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
-            });
-
-            // --- Lógica para el Navbar del Cliente ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const closeMenuButton = document.getElementById('close-menu');
-            const menuOverlay = document.getElementById('menu-overlay');
-            const searchButton = document.getElementById('search-button');
-            const mobileSearchButton = document.getElementById('mobile-search-button');
-            const searchModal = document.getElementById('search-modal');
-            const closeSearchButton = document.getElementById('close-search');
-
-            const openMenu = () => {
-                mobileMenu.classList.remove('-translate-x-full');
-                menuOverlay.classList.remove('hidden');
-            };
-
-            const closeMenu = () => {
-                mobileMenu.classList.add('-translate-x-full');
-                menuOverlay.classList.add('hidden');
-            };
-
-            const openSearch = () => searchModal.classList.remove('hidden');
-            const closeSearch = () => searchModal.classList.add('hidden');
-
-            if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMenu);
-            if (closeMenuButton) closeMenuButton.addEventListener('click', closeMenu);
-            if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
-
-            if (searchButton) searchButton.addEventListener('click', openSearch);
-            if (mobileSearchButton) mobileSearchButton.addEventListener('click', openSearch);
-            if (closeSearchButton) closeSearchButton.addEventListener('click', closeSearch);
-
-            // --- Lógica para el cambio de imágenes mejorada ---
-            const thumbnailBtns = document.querySelectorAll('.thumbnail-btn');
-            const productImageDisplay = document.getElementById('productImageDisplay');
-
-            thumbnailBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const newImgSrc = btn.dataset.imgSrc;
-                    if (!newImgSrc) return; // si falta, no hace nada
-
-                    // efecto suave
-                    productImageDisplay.style.opacity = "0";
-                    setTimeout(() => {
-                        productImageDisplay.src = newImgSrc;
-                        productImageDisplay.style.opacity = "1";
-                    }, 200);
-
-                    // actualizar botón activo
-                    thumbnailBtns.forEach(b => b.classList.remove("ring-2", "ring-accent"));
-                    btn.classList.add("ring-2", "ring-accent");
-                });
-            });
-
-
-            // --- Lógica de la Calculadora Mejorada ---
-            const calculateBtn = document.getElementById('calculateBtn');
-            const PRICE_PER_ROLL = 187.00;
-            const METERS_PER_ROLL = 305;
-
-            const calculateProject = () => {
-                const points = parseInt(document.getElementById('networkPoints').value) || 0;
-                const distance = parseFloat(document.getElementById('avgDistance').value) || 0;
-                const waste = parseFloat(document.getElementById('wasteFactor').value) || 0;
-
-                if (points === 0 || distance === 0) {
-                    // Si no hay datos, mostramos el resultado inicial
-                    const initialMeters = 24 * 50 * (1 + 15 / 100);
-                    const initialRolls = Math.ceil(initialMeters / METERS_PER_ROLL);
-                    const initialCost = initialRolls * PRICE_PER_ROLL;
-
-                    document.getElementById('totalMeters').textContent = `${initialMeters.toLocaleString()} m`;
-                    document.getElementById('totalRolls').textContent = `${initialRolls} rollos`;
-                    document.getElementById('totalCost').textContent = `$${initialCost.toFixed(2)} USD`;
-                    return;
-                }
-
-                const baseMeters = points * distance;
-                const totalMeters = baseMeters * (1 + waste / 100);
-                const totalRolls = Math.ceil(totalMeters / METERS_PER_ROLL);
-                const totalCost = totalRolls * PRICE_PER_ROLL;
-
-                // Actualizar con animación
-                const updateElement = (id, value) => {
-                    const element = document.getElementById(id);
-                    element.style.transform = 'scale(1.1)';
-                    element.style.color = 'var(--accent)';
-                    setTimeout(() => {
-                        element.textContent = value;
-                        element.style.transform = 'scale(1)';
-                    }, 150);
-                };
-
-                updateElement('totalMeters', `${totalMeters.toLocaleString(undefined, { maximumFractionDigits: 0 })} m`);
-                updateElement('totalRolls', `${totalRolls} rollo${totalRolls > 1 ? 's' : ''}`);
-                updateElement('totalCost', `$${totalCost.toFixed(2)} USD`);
-            };
-
-            if (calculateBtn) {
-                calculateBtn.addEventListener('click', calculateProject);
-
-                // Calcular automáticamente cuando cambian los valores
-                ['networkPoints', 'avgDistance', 'wasteFactor'].forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.addEventListener('input', calculateProject);
-                        element.addEventListener('change', calculateProject);
-                    }
-                });
-            }
-
-            // Ejecutar cálculo inicial
-            calculateProject();
-
-            // Scroll suave para enlaces internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            const details = document.querySelectorAll("aside details");
-
-            details.forEach((targetDetail) => {
-                targetDetail.addEventListener("toggle", () => {
-                    if (targetDetail.open) {
-                        details.forEach((detail) => {
-                            if (detail !== targetDetail) {
-                                detail.open = false;
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

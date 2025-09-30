@@ -1,226 +1,161 @@
 document.addEventListener('DOMContentLoaded', () => {
+            // Animaciones de entrada progresivas
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-    /* =========================================
-       1. Lógica del Menú Móvil (Toggle y UX)
-    ========================================= */
-    const menuBtn = document.getElementById('menuBtn');
-    const menuIcon = document.getElementById('menuIcon');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileLinks = mobileMenu.querySelectorAll('a');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-    /**
-     * Alterna la visibilidad del menú móvil y cambia el ícono del botón (hamburguesa <-> cerrar).
-     */
-    const toggleMenu = () => {
-        const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-        menuBtn.setAttribute('aria-expanded', String(!isExpanded));
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
 
-        // 1. Alternar clases de altura para el efecto de deslizamiento vertical.
-        mobileMenu.classList.toggle('max-h-0');
-        mobileMenu.classList.toggle('max-h-96'); 
+            // --- Lógica para el Navbar del Cliente ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuButton = document.getElementById('close-menu');
+            const menuOverlay = document.getElementById('menu-overlay');
+            const searchButton = document.getElementById('search-button');
+            const mobileSearchButton = document.getElementById('mobile-search-button');
+            const searchModal = document.getElementById('search-modal');
+            const closeSearchButton = document.getElementById('close-search');
 
-        // 2. Cambiar el ícono (Phosophor Icons: ph-list <-> ph-x).
-        if (isExpanded) {
-            menuIcon.classList.remove('ph-x');
-            menuIcon.classList.add('ph-list');
-        } else {
-            menuIcon.classList.remove('ph-list');
-            menuIcon.classList.add('ph-x');
-        }
-    };
+            const openMenu = () => {
+                mobileMenu.classList.remove('-translate-x-full');
+                menuOverlay.classList.remove('hidden');
+            };
 
-    // Evento principal para abrir/cerrar el menú
-    menuBtn.addEventListener('click', toggleMenu);
+            const closeMenu = () => {
+                mobileMenu.classList.add('-translate-x-full');
+                menuOverlay.classList.add('hidden');
+            };
 
-    // Evento para cerrar el menú automáticamente al hacer clic en un enlace (Mejora la UX móvil)
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (menuBtn.getAttribute('aria-expanded') === 'true') {
-                toggleMenu();
+            const openSearch = () => searchModal.classList.remove('hidden');
+            const closeSearch = () => searchModal.classList.add('hidden');
+
+            if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMenu);
+            if (closeMenuButton) closeMenuButton.addEventListener('click', closeMenu);
+            if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+
+            if (searchButton) searchButton.addEventListener('click', openSearch);
+            if (mobileSearchButton) mobileSearchButton.addEventListener('click', openSearch);
+            if (closeSearchButton) closeSearchButton.addEventListener('click', closeSearch);
+
+            // --- Lógica para el cambio de imágenes mejorada ---
+            const thumbnailBtns = document.querySelectorAll('.thumbnail-btn');
+            const productImageDisplay = document.getElementById('productImageDisplay');
+
+            thumbnailBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const newImgSrc = btn.dataset.imgSrc;
+                    if (!newImgSrc) return; // si falta, no hace nada
+
+                    // efecto suave
+                    productImageDisplay.style.opacity = "0";
+                    setTimeout(() => {
+                        productImageDisplay.src = newImgSrc;
+                        productImageDisplay.style.opacity = "1";
+                    }, 200);
+
+                    // actualizar botón activo
+                    thumbnailBtns.forEach(b => b.classList.remove("ring-2", "ring-accent"));
+                    btn.classList.add("ring-2", "ring-accent");
+                });
+            });
+
+
+            // --- Lógica de la Calculadora Mejorada ---
+            const calculateBtn = document.getElementById('calculateBtn');
+            const PRICE_PER_ROLL = 187.00;
+            const METERS_PER_ROLL = 305;
+
+            const calculateProject = () => {
+                const points = parseInt(document.getElementById('networkPoints').value) || 0;
+                const distance = parseFloat(document.getElementById('avgDistance').value) || 0;
+                const waste = parseFloat(document.getElementById('wasteFactor').value) || 0;
+
+                if (points === 0 || distance === 0) {
+                    // Si no hay datos, mostramos el resultado inicial
+                    const initialMeters = 24 * 50 * (1 + 15 / 100);
+                    const initialRolls = Math.ceil(initialMeters / METERS_PER_ROLL);
+                    const initialCost = initialRolls * PRICE_PER_ROLL;
+
+                    document.getElementById('totalMeters').textContent = `${initialMeters.toLocaleString()} m`;
+                    document.getElementById('totalRolls').textContent = `${initialRolls} rollos`;
+                    document.getElementById('totalCost').textContent = `$${initialCost.toFixed(2)} USD`;
+                    return;
+                }
+
+                const baseMeters = points * distance;
+                const totalMeters = baseMeters * (1 + waste / 100);
+                const totalRolls = Math.ceil(totalMeters / METERS_PER_ROLL);
+                const totalCost = totalRolls * PRICE_PER_ROLL;
+
+                // Actualizar con animación
+                const updateElement = (id, value) => {
+                    const element = document.getElementById(id);
+                    element.style.transform = 'scale(1.1)';
+                    element.style.color = 'var(--accent)';
+                    setTimeout(() => {
+                        element.textContent = value;
+                        element.style.transform = 'scale(1)';
+                    }, 150);
+                };
+
+                updateElement('totalMeters', `${totalMeters.toLocaleString(undefined, { maximumFractionDigits: 0 })} m`);
+                updateElement('totalRolls', `${totalRolls} rollo${totalRolls > 1 ? 's' : ''}`);
+                updateElement('totalCost', `$${totalCost.toFixed(2)} USD`);
+            };
+
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', calculateProject);
+
+                // Calcular automáticamente cuando cambian los valores
+                ['networkPoints', 'avgDistance', 'wasteFactor'].forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.addEventListener('input', calculateProject);
+                        element.addEventListener('change', calculateProject);
+                    }
+                });
             }
+
+            // Ejecutar cálculo inicial
+            calculateProject();
+
+            // Scroll suave para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            const details = document.querySelectorAll("aside details");
+
+            details.forEach((targetDetail) => {
+                targetDetail.addEventListener("toggle", () => {
+                    if (targetDetail.open) {
+                        details.forEach((detail) => {
+                            if (detail !== targetDetail) {
+                                detail.open = false;
+                            }
+                        });
+                    }
+                });
+            });
         });
-    });
-
-
-    /* =========================================
-       2. Lógica del Scroll Indicator (Barra de Progreso)
-    ========================================= */
-    const progressBar = document.getElementById('progressBar');
-
-    /**
-     * Actualiza el ancho de la barra de progreso en función del porcentaje de desplazamiento de la página.
-     */
-    const updateProgressBar = () => {
-        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-        // La fórmula calcula el porcentaje de scroll respecto al contenido total visible.
-        const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
-        progressBar.style.width = scrollPercent + '%';
-    };
-
-    // Asigna la función de actualización al evento de scroll global.
-    window.addEventListener('scroll', updateProgressBar);
-    updateProgressBar(); // Ejecuta una vez al cargar para establecer la posición inicial.
-
-
-    /* =========================================
-       3. Lógica del Fade-in al Scroll (Intersection Observer)
-    ========================================= */
-    const fadeInElements = document.querySelectorAll('.fade-in');
-
-    const observerOptions = {
-        root: null, // Observa respecto al viewport
-        rootMargin: '0px',
-        threshold: 0.2 // El callback se dispara cuando el 20% del elemento es visible.
-    };
-
-    /**
-     * Callback para el Intersection Observer. Añade la clase 'appear' para iniciar la animación CSS.
-     */
-    const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('appear');
-                observer.unobserve(entry.target); // Se detiene la observación para optimizar el rendimiento.
-            }
-        });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Adjunta el observador a todos los elementos con la clase '.fade-in'.
-    fadeInElements.forEach(element => {
-        observer.observe(element);
-    });
-
-    /* =========================================
-       4. Lógica de Cambio de Imagen por Miniatura (Galería de Productos)
-    ========================================= */
-    const thumbnailButtons = document.querySelectorAll('.thumbnail-btn');
-    const productImageDisplay = document.getElementById('productImageDisplay');
-
-    /**
-     * Maneja el clic en las miniaturas, actualizando la imagen principal y el estado 'active'.
-     */
-    thumbnailButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remueve el estado activo del botón anterior.
-            thumbnailButtons.forEach(btn => btn.classList.remove('active'));
-
-            // Añade el estado activo al botón clickeado.
-            this.classList.add('active');
-
-            // Obtiene la URL de la imagen a mostrar.
-            const newSrc = this.getAttribute('data-img-src');
-
-            // Transición suave: reduce la opacidad, cambia la fuente y restablece la opacidad.
-            productImageDisplay.style.opacity = '0';
-            setTimeout(() => {
-                productImageDisplay.src = newSrc;
-                productImageDisplay.style.opacity = '1';
-            }, 200); 
-        });
-    });
-
-
-    /* =========================================
-       5. Lógica de la Calculadora de Proyecto (Inclusión de Costo)
-    ========================================= */
-    const ROLL_LENGTH_METERS = 305; // Longitud estándar del rollo (1000 ft ≈ 304.8m)
-    const PRICE_PER_ROLL_USD = 187.00;
-
-    const networkPointsInput = document.getElementById('networkPoints');
-    const avgDistanceInput = document.getElementById('avgDistance');
-    const wasteFactorSelect = document.getElementById('wasteFactor');
-    const calculateBtn = document.getElementById('calculateBtn');
-    
-    const totalMetersDisplay = document.getElementById('totalMeters');
-    const totalRollsDisplay = document.getElementById('totalRolls');
-    const totalCostDisplay = document.getElementById('totalCost');
-
-    /**
-     * Realiza todos los cálculos de cable, rollos y costo basados en los inputs del usuario.
-     */
-    const calculateCable = () => {
-        // 1. Obtener y parsear valores de input.
-        const points = parseInt(networkPointsInput.value) || 0;
-        const distance = parseFloat(avgDistanceInput.value) || 0;
-        const wasteFactor = parseInt(wasteFactorSelect.value) / 100;
-
-        if (points <= 0 || distance <= 0) {
-            // Muestra valores por defecto si los inputs son inválidos.
-            totalMetersDisplay.textContent = '0 m';
-            totalRollsDisplay.textContent = '0 rollos';
-            totalCostDisplay.textContent = '$0.00 USD';
-            return;
-        }
-
-        // 2. Calcular el total de metros con el factor de desperdicio incluido.
-        const rawMeters = points * distance;
-        const totalMetersRequired = rawMeters * (1 + wasteFactor);
-
-        // 3. Calcular la cantidad de rollos requeridos (siempre redondeando hacia el siguiente rollo).
-        const totalRolls = Math.ceil(totalMetersRequired / ROLL_LENGTH_METERS);
-
-        // 4. Calcular el costo total.
-        const totalCost = totalRolls * PRICE_PER_ROLL_USD;
-
-        // 5. Renderizar los resultados en la interfaz.
-        totalMetersDisplay.textContent = `${Math.round(totalMetersRequired)} m`;
-        totalRollsDisplay.textContent = `${totalRolls} rollos`;
-        totalCostDisplay.textContent = `$${totalCost.toFixed(2)} USD`;
-    };
-
-    // Eventos para disparar el cálculo: clic en el botón y cambios en cualquier input.
-    calculateBtn.addEventListener('click', calculateCable);
-    networkPointsInput.addEventListener('input', calculateCable);
-    avgDistanceInput.addEventListener('input', calculateCable);
-    wasteFactorSelect.addEventListener('change', calculateCable);
-    
-    // Ejecuta el cálculo al cargar la página para mostrar los resultados iniciales.
-    calculateCable();
-
-
-    /* =========================================
-       6. Lógica de Breadcrumbs (Migas de Pan) - Generación Dinámica
-    ========================================= */
-    const breadcrumbContainer = document.getElementById('breadcrumbs');
-    const breadcrumbData = [
-        // Define la estructura de las migas de pan.
-        { name: 'Inicio', href: 'https://www.ds3comunicaciones.com/index.html', active: false },
-        { name: 'Cableado Estructurado', href: '#', active: false },
-        { name: 'Categoría 6', href: '#', active: false },
-        { name: 'Cable UTP AMP Cat 6', href: '#', active: true } // El último elemento es el actual.
-    ];
-
-    /**
-     * Itera sobre los datos y crea dinámicamente los elementos HTML (enlaces y separadores).
-     */
-    breadcrumbData.forEach((item, index) => {
-        // Decide si crear un <span> (elemento activo) o un <a> (enlace).
-        const element = document.createElement(item.active ? 'span' : 'a');
-        element.textContent = item.name;
-        element.classList.add('breadcrumb-item');
-        
-        if (item.active) {
-            // Estilos y atributos para el elemento activo (accesibilidad).
-            element.classList.add('active');
-            element.setAttribute('aria-current', 'page');
-        } else {
-            // Atributos para los enlaces (navegación).
-            element.href = item.href;
-            element.title = `Ir a ${item.name}`;
-            element.classList.add('hover:text-primary-custom/70'); 
-        }
-
-        breadcrumbContainer.appendChild(element);
-
-        // Añade el separador '/' si no es el último elemento de la lista.
-        if (index < breadcrumbData.length - 1) {
-            const separator = document.createElement('span');
-            separator.textContent = '/';
-            separator.classList.add('breadcrumb-separator');
-            breadcrumbContainer.appendChild(separator);
-        }
-    });
-
-});
